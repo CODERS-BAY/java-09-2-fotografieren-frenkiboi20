@@ -1,13 +1,13 @@
 public class Lens {
 
     private int focalLen;
-    private int maxFocalLen = 100;
+    private int maxFocalLen = 1000;
     private int minFocalLen = 10;
-    public static int lenCount;
+    public static int lensCount;
 
     public Lens(int focalLen) {
         setFocalLen(focalLen);
-        lenCount++;
+        lensCount++;
     }
 
     public void setFocalLen(int focalLen) {

@@ -10,13 +10,13 @@ public class Camera {
     private Lens lens;
     public static int cameraCount;
 
-    public Camera(String brand, int[][] display, int xSize, int ySize, boolean isGreyScaled, Color color) {
+    public Camera(String brand, int[][] display, int xSize, int ySize, boolean isGreyScaled, Color color, Lens lens) {
         this.brand = brand;
         this.display = display;
         megaPixels = xSize * ySize;
         this.isGreyScaled = isGreyScaled;
         this.color = color;
-        lens = new Lens(55);
+        this.lens = lens;
         cameraCount++;
     }
 
@@ -73,5 +73,9 @@ public class Camera {
                 ", color=" + color +
                 ", lens=" + lens.getFocalLen() + "mm" +
                 '}';
+    }
+
+    public Lens getLens() {
+        return lens;
     }
 }
