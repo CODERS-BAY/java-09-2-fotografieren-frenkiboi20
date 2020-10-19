@@ -3,11 +3,12 @@ import org.junit.jupiter.api.Test;
 import java.awt.*;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class CameraTest {
 
     @Test
-    public void testSetCorrectCameraLens() {
+    public void testSetCorrectCameraLens() throws FocalLengthTooSmallException, FocalLengthTooBigException {
 
         Lens lens = new Lens(100);
         assertEquals(lens.getFocalLen(), 100);
@@ -15,10 +16,10 @@ public class CameraTest {
     }
 
     @Test
-    public void testChangeCameraLens() {
+    public void testChangeCameraLens() throws FocalLengthTooSmallException, FocalLengthTooBigException {
         Lens miniLens = new Lens(100);
 
-        Camera camera = new Camera("Kodak", new int[1920][1080], 1920, 1080, false, new Color(100,100,100), miniLens);
+        Camera camera = new Camera("Kodak", new int[1920][1080], 1920, 1080, false, new Color(100, 100, 100), miniLens);
         assertEquals(camera.getLens().getFocalLen(), 100);
 
         Lens maxiLens = new Lens(500);
@@ -28,13 +29,26 @@ public class CameraTest {
     }
 
     @Test
-    public void testAmountOfLenses() {
+    public void testAmountOfLenses() throws FocalLengthTooSmallException, FocalLengthTooBigException {
 
-        Camera cam1 = new Camera("Kodak", new int[1920][1080], 1920, 1080, false, new Color(100,100,100), new Lens(250));
-        Camera cam2 = new Camera("Minolta", new int[1920][1080], 1920, 1080, false, new Color(100,100,100), new Lens(100));
-        Camera cam3 = new Camera("NoMark", new int[1920][1080], 1920, 1080, false, new Color(100,100,100), new Lens(150));
+        Camera cam1 = new Camera("Kodak", new int[1920][1080], 1920, 1080, false, new Color(100, 100, 100), new Lens(250));
+        Camera cam2 = new Camera("Minolta", new int[1920][1080], 1920, 1080, false, new Color(100, 100, 100), new Lens(100));
+        Camera cam3 = new Camera("NoMark", new int[1920][1080], 1920, 1080, false, new Color(100, 100, 100), new Lens(150));
 
         assertEquals(Camera.cameraCount, 3);
     }
+
+    @Test
+    public void testFocalLengthTooBigException() {
+
+        assertThrows(FocalLengthTooBigException.class, () -> new Lens((1200)));
+    }
+
+    @Test
+    public void testFocalLengthTooSmallException() {
+
+        assertThrows(FocalLengthTooSmallException.class, () -> new Lens((5)));
+    }
+
 
 }

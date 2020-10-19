@@ -5,16 +5,16 @@ public class Lens {
     private int minFocalLen = 10;
     public static int lensCount;
 
-    public Lens(int focalLen) {
+    public Lens(int focalLen) throws FocalLengthTooSmallException, FocalLengthTooBigException {
         setFocalLen(focalLen);
         lensCount++;
     }
 
-    public void setFocalLen(int focalLen) {
+    public void setFocalLen(int focalLen) throws FocalLengthTooBigException, FocalLengthTooSmallException {
         if (focalLen > maxFocalLen) {
-            System.out.println("Brennweite des Objektivs zu gross [MAX = 100mm]");
+            throw new FocalLengthTooBigException();
         } else if (focalLen < minFocalLen) {
-            System.out.println("Brennweite des Objektivs zu klein [MIN = 10mm]");
+            throw new FocalLengthTooSmallException();
         } else {
             this.focalLen = focalLen;
         }
